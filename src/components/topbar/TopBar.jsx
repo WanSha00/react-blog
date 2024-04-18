@@ -39,26 +39,31 @@ function TopBar() {
         </div>
         <div className="topRight">
           {user ? (
+            <>
             <img
               className="topImg"
               src="https://images.pexels.com/photos/20440314/pexels-photo-20440314/free-photo-of-woman-standing-behind-blossoming-tree.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt=""
             />
+            <span>Hello, Nana!</span>
+            </>
           ) : (
-            <ul className="topList">
-              <li className="topListItem">
-                <Link className="link" to="/login">
-                  LOGIN
-                </Link>
-              </li>
-              <li className="topListItem">
-                <Link className="link" to="/register">
-                  REGISTER
-                </Link>
-              </li>
-            </ul>
+            ""
+            // <ul className="topList">
+            //   <li className="topListItem">
+            //     <Link className="link" to="/login">
+            //       LOGIN
+            //     </Link>
+            //   </li>
+            //   <li className="topListItem">
+            //     <Link className="link" to="/register">
+            //       REGISTER
+            //     </Link>
+            //   </li>
+            // </ul>
           )}
-          <i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
+          {/* <i className="topSearchIcon fa-solid fa-magnifying-glass"></i> */}
+          
         </div>
       </div>
     </>
