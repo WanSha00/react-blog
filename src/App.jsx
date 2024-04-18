@@ -10,7 +10,7 @@ import Register from "./pages/register/Register";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  const currentUser = true;
+  const currentUser = false;
   return (
     <BrowserRouter>
       <TopBar />

@@ -1,12 +1,39 @@
+import { useState } from "react";
 import "./Register.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(false);
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/register", {
+        username,
+        email,
+        password,
+      });
+
+      if(res.data){
+        window.location.replace("/login");
+      }
+    } catch (error) {
+      console.log(error)
+      setError(true);
+    }
+  };
+
   return (
     <>
       <div className="register">
         <span className="registerTitle">Register</span>
-        <form className="registerForm">
+        <form className="registerForm" onSubmit={handleSubmit}>
           <label>Username</label>
           <input
             type="text"
@@ -14,6 +41,7 @@ function Register() {
             id=""
             placeholder="Enter your username..."
             required
+            onChange={(e) => setUsername(e.target.value)}
           />
           <label>Email</label>
           <input
@@ -22,6 +50,7 @@ function Register() {
             id=""
             placeholder="Enter your email..."
             required
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label>Password</label>
           <input
@@ -30,14 +59,19 @@ function Register() {
             id=""
             placeholder="Enter your password..."
             required
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <button className="registerButton">Register</button>
+          <button className="registerButton" type="submit">
+            Register
+          </button>
         </form>
         <button className="registerLoginButton">
           <Link className="link" to="/login">
             Login
           </Link>
         </button>
+        {error && (<span className="error">Username/Email already taken.</span>)}
+        
       </div>
     </>
   );
