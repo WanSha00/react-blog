@@ -1,8 +1,9 @@
 import { useLocation } from "react-router-dom";
 import "./SinglePost.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
 
 function SinglePost() {
 
@@ -10,6 +11,7 @@ function SinglePost() {
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
   const publicFolder = "http://localhost:5000/images/";
+  const {user} = useContext(Context);
 
   useEffect(() => {
 
@@ -21,6 +23,16 @@ function SinglePost() {
     getPost();
 
   },[path])
+
+  const handleDelete = async()=>{
+    try {
+      await axios.delete("http://localhost:5000/api/posts/" + path, {data: {username:user.username}});
+      window.location.replace("/");
+    } catch (error) {
+      
+    }
+    
+  }
 
   return (
     <>
@@ -34,10 +46,13 @@ function SinglePost() {
           
           <h1 className="singlePostTitle">
             {post.title}
-            <div className="singlePostEdit">
+            {post.username == user?.username && (
+              <div className="singlePostEdit">
               <i className="singlePostEditIcon fa-solid fa-pen-to-square"></i>
-              <i className="singlePostEditIcon fa-solid fa-trash"></i>
+              <i className="singlePostEditIcon fa-solid fa-trash" onClick={handleDelete}></i>
             </div>
+            )}
+            
           </h1>
           <div className="singlePostInfo">
             <span className="singlePostInfoAuthor">
