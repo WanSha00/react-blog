@@ -1,12 +1,37 @@
+import { useContext, useRef } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
+import axios from "axios";
 
 function Login() {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { user, dispatch, isFetching } = useContext(Context);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch({ type: "LOGIN_START" });
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
+
+      if(res){
+        dispatch({type: "LOGIN_SUCCESS", payload:res.data});
+      }
+    } catch (error) {
+      dispatch({ type: "LOGIN_FAIL" });
+    }
+  };
+
   return (
     <>
       <div className="login">
         <span className="loginTitle">Login</span>
-        <form className="loginForm">
+        <form className="loginForm" onSubmit={handleSubmit}>
           <label>Email</label>
           <input
             type="email"
@@ -14,6 +39,7 @@ function Login() {
             id=""
             placeholder="Enter your email..."
             required
+            ref={emailRef}
           />
           <label>Password</label>
           <input
@@ -22,8 +48,11 @@ function Login() {
             id=""
             placeholder="Enter your password..."
             required
+            ref={passwordRef}
           />
-          <button className="loginButton">Login</button>
+          <button className="loginButton" type="submit">
+            Login
+          </button>
         </form>
         <button className="loginRegisterButton">
           <Link className="link" to="/register">
