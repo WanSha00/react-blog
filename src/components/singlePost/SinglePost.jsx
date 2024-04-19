@@ -9,6 +9,7 @@ function SinglePost() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
+  const publicFolder = "http://localhost:5000/images/";
 
   useEffect(() => {
 
@@ -27,7 +28,7 @@ function SinglePost() {
         <div className="singlePostWrapper">
           {post.photo && (<img
             className="singlePostImg"
-            src={post.photo}
+            src={publicFolder + post.photo}
             alt=""
           />)}
           

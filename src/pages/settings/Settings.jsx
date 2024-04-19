@@ -19,7 +19,7 @@ function Settings() {
             <label>Profile Picture</label>
             <div className="settingsPP">
               <img
-                src={user.profilePic}
+                src={user.profilePic == "" ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" : user.profilePic}
                 alt=""
               />
               <label htmlFor="fileInput">
