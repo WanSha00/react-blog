@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import "./Sidebar.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
+
 
 function Sidebar() {
   const [categories, setCategories] = useState([]);
+  const {user} = useContext(Context);
 
   useEffect(() => {
     const getCategories = async () => {
       const res = await axios.get("http://localhost:5000/api/categories");
-      console.log(res.data)
       setCategories(res.data);
     };
 
@@ -22,7 +25,7 @@ function Sidebar() {
         <div className="sidebarItem">
           <span className="sidebarTitle">ABOUT ME</span>
           <img
-            src="https://images.pexels.com/photos/2389349/pexels-photo-2389349.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src={user.profilePic}
             alt=""
           />
           <p>
