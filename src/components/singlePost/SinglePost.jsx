@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 
 function SinglePost() {
+
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
@@ -14,6 +15,7 @@ function SinglePost() {
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [file, setFile] = useState(user.photo);
   const [updateMode, setUpdateMode] = useState(false);
 
   useEffect(() => {
@@ -37,12 +39,29 @@ function SinglePost() {
   };
 
   const handleUpdate = async () => {
+
+    const updatedPost= {
+      title,
+      desc,
+      username:user.username
+    };
+
+    const data = new FormData();
+    if (file) {
+      
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      updatedPost.photo = filename;
+
+      
+    }
     try {
-      await axios.put("http://localhost:5000/api/posts/" + path, {
-        title,
-        desc,
-        username: user.username
-      });
+      await axios.put("http://localhost:5000/api/posts/" + path, updatedPost);
+
+      try {
+        await axios.post("http://localhost:5000/api/upload", data);
+      } catch (error) {}
 
       window.location.reload();
     } catch (error) {}
@@ -55,9 +74,25 @@ function SinglePost() {
           {post.photo && (
             <img
               className="singlePostImg"
-              src={publicFolder + post.photo}
+              src={file
+                ? URL.createObjectURL(file)
+                : publicFolder + post.photo}
               alt=""
             />
+          )}
+
+          {updateMode && (
+            <>
+              <label htmlFor="fileInput">
+                <i className="writeFileIcon fa-solid fa-plus"></i>
+              </label>
+              <input
+                className="writeFile"
+                type="file"
+                id="fileInput"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </>
           )}
 
           {updateMode ? (
@@ -106,10 +141,20 @@ function SinglePost() {
           ) : (
             <p className="singlePostDescription">{post.desc}</p>
           )}
-          {updateMode && (<button className="singlePostButton" onClick={handleUpdate}>
-            Update
-          </button>)}
-          
+          {updateMode && (
+            <>
+            <div className="editButtons">
+            <button className="updateButton" onClick={handleUpdate}>
+                Update
+              </button>
+
+              <button className="cancelButton" onClick={() => setUpdateMode(false)}>
+                Cancel
+              </button>
+            </div>
+              
+            </>
+          )}
         </div>
       </div>
     </>
