@@ -5,6 +5,7 @@ import { Context } from "../../context/Context";
 
 function TopBar() {
   const {user, dispatch} = useContext(Context);
+  const publicFolder = "http://localhost:5000/images/";
 
   const handleLogout = ()=>{
 
@@ -54,7 +55,7 @@ function TopBar() {
             <Link className="link" to="/settings">
             <img
               className="topImg"
-              src={user.profilePic == "" ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" : user.profilePic}
+              src={user.profilePic == "" ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" : publicFolder + user.profilePic}
               alt=""
             />
               </Link>

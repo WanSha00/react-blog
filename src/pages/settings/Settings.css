@@ -84,3 +84,9 @@
     margin-top: 20px;
     cursor: pointer;
 }
+
+.msg{
+    color: green;
+    margin-top: 20px;
+    text-align: center;
+}
