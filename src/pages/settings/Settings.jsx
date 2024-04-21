@@ -11,6 +11,7 @@ function Settings() {
   const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
+  const [bio, setBio] = useState(user.bio);
   const [success, setSuccess] = useState(false);
   const publicFolder = "http://localhost:5000/images/";
 
@@ -30,13 +31,15 @@ function Settings() {
         userID:user._id,
         username,
         email,
-        password
+        password,
+        bio
       };
     }else{
       updatedUser = {
         userID:user._id,
         username,
-        email
+        email,
+        bio
       };
     }   
     
@@ -107,6 +110,8 @@ function Settings() {
             <input type="email" name="" id=""  placeholder={user.email} value={email} onChange={e=>setEmail(e.target.value)} required/>
             <label>Password</label>
             <input type="password" name="" id="" onChange={e=>setPassword(e.target.value)}/>
+            <label>Bio</label>
+            <input type="text" name="" id="" placeholder={user.bio} value={bio} onChange={e=>setBio(e.target.value)} required/>
             <button className="settingsSubmit" type="submit">Update</button>
             {success && <span className="msg">Profile has been updated. Logging out...</span>}
           </form>

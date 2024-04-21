@@ -29,11 +29,8 @@ function Sidebar() {
             src={user.profilePic == "" ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" : publicFolder + user.profilePic}
             alt=""
           />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo magnam,
-            accusamus molestias perspiciatis error autem cupiditate possimus
-            quos accusantium aliquam consectetur assumenda, impedit officia
-            eveniet dicta? Atque delectus sunt iusto!
+          <p>{user.bio == "" ? "This user has nothing to say..." : user.bio}
+            
           </p>
         </div>
         <div className="sidebarItem">
@@ -51,7 +48,7 @@ function Sidebar() {
             })}
           </ul>
         </div>
-        <div className="sidebarItem">
+        {/* <div className="sidebarItem">
           <span className="sidebarTitle">FOLLOW US</span>
           <div className="sidebarSocial">
             <i className="sidebarIcon fa-brands fa-square-facebook"></i>
@@ -59,7 +56,7 @@ function Sidebar() {
             <i className="sidebarIcon fa-brands fa-square-pinterest"></i>
             <i className="sidebarIcon fa-brands fa-square-instagram"></i>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -24,10 +24,13 @@ function Post({ post }) {
           </Link>
           
           <hr />
+          <div className="details">
           <span className="postAuthor">by {post.username}</span>
-          {/* <span className="postDate">
+          <span className="postDate">
             {new Date(post.createdAt).toDateString()}
-          </span> */}
+          </span>
+          </div>
+          
         </div>
         <p className="postDescription">{post.desc}</p>
       </div>
