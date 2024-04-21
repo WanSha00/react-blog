@@ -16,12 +16,14 @@
     align-items: center;
 }
 
+.postCategories{
+    margin-bottom: 15px;
+}
 .postCategory{
     font-family: 'Varela Round', sans-serif;
-    font-size: 11px;
+    font-size: 15px;
     color: #be9656;
     line-height: 20px;
-    margin-top: 15px;
     margin-right: 10px;
     cursor: pointer;
 }
@@ -30,11 +32,10 @@
     font-family: 'Josefin Sans', sans-serif;
     font-size: 24px;
     font-weight: 700;
-    margin-top: 15px;
     cursor: pointer;
 }
 
-.postDate{
+.postDate, .postAuthor{
     font-family: 'Lora', serif;
     font-style: italic;
     font-size: 13px;

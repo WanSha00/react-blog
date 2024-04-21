@@ -19,16 +19,15 @@ function Write() {
       username: user.username,
       categories,
     };
-    
+
     const data = new FormData();
     if (file) {
-      
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
       newPost.photo = filename;
-
-      
+    }else{
+      newPost.photo = ".";
     }
 
     try {
@@ -59,20 +58,27 @@ function Write() {
             <label htmlFor="fileInput">
               <i className="writeFileIcon fa-solid fa-plus"></i>
             </label>
-            <input className="writeFile" type="file" id="fileInput" onChange={e=>setFile(e.target.files[0])}/>
+            <input
+              className="writeFile"
+              type="file"
+              id="fileInput"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
             <input
               className="writeInput"
               type="text"
               placeholder="Title"
               autoFocus={true}
-              onChange={e=>setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
+              required
             />
           </div>
           <div className="writeFormGroup">
             <textarea
               className="writeInput writeText"
               placeholder="Tell your story..."
-              onChange={e=>setDesc(e.target.value)}
+              onChange={(e) => setDesc(e.target.value)}
+              required
             ></textarea>
           </div>
           <button className="writeSubmit" type="submit">

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 
 function SinglePost() {
-
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
@@ -39,22 +38,18 @@ function SinglePost() {
   };
 
   const handleUpdate = async () => {
-
-    const updatedPost= {
+    const updatedPost = {
       title,
       desc,
-      username:user.username
+      username: user.username,
     };
 
     const data = new FormData();
     if (file) {
-      
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
       updatedPost.photo = filename;
-
-      
     }
     try {
       await axios.put("http://localhost:5000/api/posts/" + path, updatedPost);
@@ -74,9 +69,7 @@ function SinglePost() {
           {post.photo && (
             <img
               className="singlePostImg"
-              src={file
-                ? URL.createObjectURL(file)
-                : publicFolder + post.photo}
+              src={file ? URL.createObjectURL(file) : publicFolder + post.photo}
               alt=""
             />
           )}
@@ -143,16 +136,18 @@ function SinglePost() {
           )}
           {updateMode && (
             <>
-            <div className="editButtons">
-            <button className="updateButton" onClick={handleUpdate}>
-                Update
-              </button>
+              <div className="editButtons">
+                <button className="updateButton" onClick={handleUpdate}>
+                  Update
+                </button>
 
-              <button className="cancelButton" onClick={() => setUpdateMode(false)}>
-                Cancel
-              </button>
-            </div>
-              
+                <button
+                  className="cancelButton"
+                  onClick={() => setUpdateMode(false)}
+                >
+                  Cancel
+                </button>
+              </div>
             </>
           )}
         </div>

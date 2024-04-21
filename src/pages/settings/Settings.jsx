@@ -38,8 +38,7 @@ function Settings() {
         username,
         email
       };
-    }
-    
+    }   
     
     const data = new FormData();
     if (file) {
@@ -67,13 +66,26 @@ function Settings() {
     }
   };
 
+  const handleDelete = async()=>{
+
+    try {
+      await axios.delete("http://localhost:5000/api/users/" + user._id, {
+        data: { userID: user._id },
+      });
+      setTimeout(() => {
+        handleLogout();
+      }, 2500);
+    } catch (error) {}
+      
+  }
+
   return (
     <>
       <div className="settings">
         <div className="settingsWrapper">
           <div className="settingsTitle">
             <span className="settingsUpdateTitle">Update Your Account</span>
-            <span className="settingsDeleteTitle">Delete Account</span>
+            <span className="settingsDeleteTitle" onClick={handleDelete}>Delete Account</span>
           </div>
           <form className="settingsForm" onSubmit={handleUpdate}>
             <label>Profile Picture</label>
@@ -81,7 +93,7 @@ function Settings() {
               <img
                 src={file
                   ? URL.createObjectURL(file)
-                  : publicFolder + user.profilePic}
+                  : user.profilePic? publicFolder + user.profilePic : "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                 alt=""
               />
               <label htmlFor="fileInput">
