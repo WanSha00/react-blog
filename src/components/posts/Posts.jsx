@@ -5,7 +5,8 @@ function Posts({posts}){
     return <>
 
     <div className="posts">
-        {posts.map(post => <Post key={post._id} post={post}/>)}
+            
+        {posts.length>0 ? posts.map(post => <Post key={post._id} post={post}/>) : <span>No posts found.</span>}
        
       
     </div>

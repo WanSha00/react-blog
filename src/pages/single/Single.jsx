@@ -8,7 +8,7 @@ function Single() {
     <>
       <div className="single">
         <SinglePost/>
-        <Sidebar/>
+        {/* <Sidebar/> */}
       </div>
     </>
   );

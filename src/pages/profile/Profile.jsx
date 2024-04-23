@@ -7,7 +7,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Context } from "../../context/Context";
 
-function Home() {
+function Profile() {
   const [posts, setPosts] = useState([]);
   const { search } = useLocation();
   const { user } = useContext(Context);
@@ -21,6 +21,7 @@ function Home() {
           "&" +
           search.split("?")[1]
       );
+
       setPosts(res.data);
     };
 
@@ -29,8 +30,8 @@ function Home() {
 
   return (
     <>
-      <Header />
-      <div className="home">
+      {/* <Header /> */}
+      <div className="profile">
         <Posts posts={posts} />
         <Sidebar />
       </div>
@@ -38,4 +39,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Profile;
