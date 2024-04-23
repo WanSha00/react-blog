@@ -1,4 +1,4 @@
-import "./Profile.css";
+import "./Author.css";
 import Header from "../../components/header/Header";
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -7,17 +7,17 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Context } from "../../context/Context";
 
-function Profile() {
+function Author() {
   const [posts, setPosts] = useState([]);
-  const { search } = useLocation();
-  const { user } = useContext(Context);
+  const {pathname, search } = useLocation();  
+  const username = pathname.split("/")[2];
 
   useEffect(() => {
     
     const fetchPosts = async () => {
       const res = await axios.get(
         "http://localhost:5000/api/posts?user=" +
-          user.username +
+          username +
           "&" +
           search.split("?")[1]
       );
@@ -31,13 +31,13 @@ function Profile() {
   return (
     <>
       {/* <Header /> */}
-      <h1>My Profile</h1>
+      <h1>{`${username}'s Page`}</h1>
       <div className="profile">
         <Posts posts={posts} />
-        <Sidebar path="profile" username={user.username} />
+        <Sidebar path={`author/${username}`} username={username}/>
       </div>
     </>
   );
 }
 
-export default Profile;
+export default Author;

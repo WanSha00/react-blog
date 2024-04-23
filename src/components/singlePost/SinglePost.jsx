@@ -117,9 +117,15 @@ function SinglePost() {
           <div className="singlePostInfo">
             <span className="singlePostInfoAuthor">
               Author :
-              <Link to={`/?user=${post.username}`} className="link">
-                <b>{post.username}</b>
-              </Link>
+              {user.username == post.username ? (
+                <Link to="/profile" className="link">
+                  <b>{post.username}</b>
+                </Link>
+              ) : (
+                <Link to={`/author/${post.username}`} className="link">
+                  <b>{post.username}</b>
+                </Link>
+              )}
             </span>
             <span className="singlePostInfoDate">
               {new Date(post.createdAt).toDateString()}
