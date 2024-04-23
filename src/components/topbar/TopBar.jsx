@@ -13,8 +13,7 @@ function TopBar() {
     window.location.replace("/login");
 
   }
-
-
+  
   return (
     <>
       <div className="top">
@@ -44,6 +43,11 @@ function TopBar() {
             <li className="topListItem">
               <Link className="link" to="/write">
                 WRITE
+              </Link>
+            </li>
+            <li className="topListItem">
+              <Link className="link" to="/profile">
+                PROFILE
               </Link>
             </li>
             <li className="topListItem" onClick={handleLogout}>{user && "LOGOUT"}</li>

@@ -1,20 +1,26 @@
-import "./Home.css";
+import "./Profile.css";
 import Header from "../../components/header/Header";
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import Categories from "../../components/categories/Categories";
+import { Context } from "../../context/Context";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const { search } = useLocation();
+  const { user } = useContext(Context);
 
   useEffect(() => {
-    console.log("home search: " + search)
+    console.log("profile search: " + search);
     const fetchPosts = async () => {
-      const res = await axios.get("http://localhost:5000/api/posts" + search);
+      const res = await axios.get(
+        "http://localhost:5000/api/posts?user=" +
+          user.username +
+          "&" +
+          search.split("?")[1]
+      );
       setPosts(res.data);
     };
 
@@ -23,11 +29,10 @@ function Home() {
 
   return (
     <>
-      {/* <Header /> */}
-      <Categories />
+      <Header />
       <div className="home">
         <Posts posts={posts} />
-        {/* <Sidebar /> */}
+        <Sidebar />
       </div>
     </>
   );

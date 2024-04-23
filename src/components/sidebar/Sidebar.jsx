@@ -38,7 +38,7 @@ function Sidebar() {
           <ul className="sidebarList">
             {categories.map((c, i) => {
               return (
-                <Link key={i} to={`/?category=${c.name}`} className="link">
+                <Link key={i} to={`/profile/?category=${c.name}`} className="link">
                   <li  className="sidebarListItem">
                   {c.name}
                 </li>
