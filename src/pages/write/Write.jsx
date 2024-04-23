@@ -1,4 +1,4 @@
-import { useContext, useDebugValue, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Write.css";
 import { Context } from "../../context/Context";
 import axios from "axios";
@@ -7,8 +7,29 @@ function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
-  const [categories, setCategories] = useState(["life"]);
+  const [categories, setCategories] = useState([]);
   const { user } = useContext(Context);
+  const [allCategories, setAllCategories] = useState([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const res = await axios.get("http://localhost:5000/api/categories");
+      setAllCategories(res.data);
+    };
+
+    getCategories();
+  }, []);
+
+  const handleChange = (e) => {
+    let isChecked = e.target.checked;
+    console.log(e.target.id + " is " + isChecked);
+    if(isChecked){
+      setCategories([...categories, e.target.id]);
+    }else{
+      setCategories(categories.filter(c => c!=e.target.id))
+    }
+    
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +38,7 @@ function Write() {
       title,
       desc,
       username: user.username,
-      categories,
+      categories
     };
 
     const data = new FormData();
@@ -26,7 +47,7 @@ function Write() {
       data.append("name", filename);
       data.append("file", file);
       newPost.photo = filename;
-    }else{
+    } else {
       newPost.photo = ".";
     }
 
@@ -73,6 +94,24 @@ function Write() {
               required
             />
           </div>
+          <div className="writeFormGroup">
+            {allCategories.map((c, i) => {
+              return (
+                <>
+                <div className="checkboxWrapper"><input
+                    type="checkbox"
+                    id={c.name}
+                    name="categories"
+                    value={c.name}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor={c.name}>{c.name}</label></div>
+                  
+                </>
+              );
+            })}
+          </div>
+
           <div className="writeFormGroup">
             <textarea
               className="writeInput writeText"
