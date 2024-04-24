@@ -41,6 +41,7 @@ function Sidebar({ path, username }) {
             }
             alt=""
           />
+          <span className="username">@{user.username}</span>
           <p>{user.bio == "" ? "This user has nothing to say..." : user.bio}</p>
         </div>
         <div className="sidebarItem">

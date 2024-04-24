@@ -116,7 +116,7 @@ function Settings() {
             {success && <span className="msg">Profile has been updated. Logging out...</span>}
           </form>
         </div>
-        <Sidebar />
+        <Sidebar path="profile" username={user.username}/>
       </div>
     </>
   );

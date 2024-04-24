@@ -31,7 +31,7 @@ function Author() {
   return (
     <>
       {/* <Header /> */}
-      <h1>{`${username}'s Page`}</h1>
+      <h1 className="authorTitle">{`${username}'s Page`}</h1>
       <div className="profile">
         <Posts posts={posts} />
         <Sidebar path={`author/${username}`} username={username}/>

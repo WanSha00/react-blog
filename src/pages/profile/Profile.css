@@ -2,3 +2,10 @@
     display: flex;
 }
 
+.profileTitle{
+    display: flex;
+    margin-left: 10%;
+    margin-top: 20px;
+    font-family:'Josefin Sans', sans-serif;
+    color: #444;
+}

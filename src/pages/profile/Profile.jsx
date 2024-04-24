@@ -31,7 +31,7 @@ function Profile() {
   return (
     <>
       {/* <Header /> */}
-      <h1>My Profile</h1>
+      <h1 className="profileTitle">My Profile</h1>
       <div className="profile">
         <Posts posts={posts} />
         <Sidebar path="profile" username={user.username} />

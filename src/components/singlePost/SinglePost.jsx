@@ -15,6 +15,7 @@ function SinglePost() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(user.photo);
+  const [categories, setCategories] = useState([]);
   const [updateMode, setUpdateMode] = useState(false);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function SinglePost() {
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      setCategories(res.data.categories);
     };
 
     getPost();
@@ -88,6 +90,16 @@ function SinglePost() {
             </>
           )}
 
+          <div className="postCategories">
+            {categories.map((c, i) => {
+              return (
+                <span key={i} className="postCategory">
+                  {c}
+                </span>
+              );
+            })}
+          </div>
+
           {updateMode ? (
             <input
               type="text"
@@ -119,11 +131,11 @@ function SinglePost() {
               Author :
               {user.username == post.username ? (
                 <Link to="/profile" className="link">
-                  <b>{post.username}</b>
+                  <b> {post.username}</b>
                 </Link>
               ) : (
                 <Link to={`/author/${post.username}`} className="link">
-                  <b>{post.username}</b>
+                  <b> {post.username}</b>
                 </Link>
               )}
             </span>
