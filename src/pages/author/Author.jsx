@@ -33,7 +33,7 @@ function Author() {
       {/* <Header /> */}
       <h1 className="authorTitle">{`${username}'s Page`}</h1>
       <div className="profile">
-        <Posts posts={posts} />
+        <Posts posts={posts} category={search.split("?")[1] == undefined? "all": search.split("?")[1].split("=")[1]} />
         <Sidebar path={`author/${username}`} username={username}/>
       </div>
     </>

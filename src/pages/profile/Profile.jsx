@@ -33,7 +33,7 @@ function Profile() {
       {/* <Header /> */}
       <h1 className="profileTitle">My Profile</h1>
       <div className="profile">
-        <Posts posts={posts} />
+        <Posts posts={posts} category={search.split("?")[1] == undefined? "all": search.split("?")[1].split("=")[1]} />
         <Sidebar path="profile" username={user.username} />
       </div>
     </>

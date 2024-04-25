@@ -26,7 +26,7 @@ function Home() {
       {/* <Header /> */}
       <Categories />
       <div className="home">
-        <Posts posts={posts} />
+        <Posts posts={posts} category={search.split("?")[1] == undefined? "all": search.split("?")[1].split("=")[1]}/>
         {/* <Sidebar /> */}
       </div>
     </>
