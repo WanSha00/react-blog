@@ -58,17 +58,15 @@ function Sidebar({ path, username }) {
                 </Link>
               );
             })}
+            <Link
+                
+                  to={`/${path}`}
+                  className="link"
+                >
+                  <li className="sidebarListItem">All</li>
+                </Link>
           </ul>
         </div>
-        {/* <div className="sidebarItem">
-          <span className="sidebarTitle">FOLLOW US</span>
-          <div className="sidebarSocial">
-            <i className="sidebarIcon fa-brands fa-square-facebook"></i>
-            <i className="sidebarIcon fa-brands fa-square-x-twitter"></i>
-            <i className="sidebarIcon fa-brands fa-square-pinterest"></i>
-            <i className="sidebarIcon fa-brands fa-square-instagram"></i>
-          </div>
-        </div> */}
       </div>
     </>
   );

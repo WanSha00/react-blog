@@ -98,7 +98,7 @@ function Write() {
             {allCategories.map((c, i) => {
               return (
                 <>
-                <div className="checkboxWrapper"><input
+                <div key={i} className="checkboxWrapper"><input
                     type="checkbox"
                     id={c.name}
                     name="categories"

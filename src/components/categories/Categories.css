@@ -16,7 +16,14 @@
     font-weight: bold;
 }
 
-.categoriesSelected{
+.categoriesList li{
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.checked{
     background-color: #be9656;
     color: white;
+    padding: 5px;
+    border-radius: 5px;
 }

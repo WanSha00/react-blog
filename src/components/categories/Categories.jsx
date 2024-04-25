@@ -7,6 +7,11 @@ import { Context } from "../../context/Context";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleItemClick = (index) => {
+    setSelectedItem(index);
+  };
 
   useEffect(() => {
     const getCategories = async () => {
@@ -21,10 +26,28 @@ function Categories() {
     <>
       <div className="categories">
         <ul className="categoriesList">
+          <Link to='/' className="link">
+          <li className={
+                    "all" == selectedItem
+                      ? "categoriesListItem checked"
+                      : "categoriesListItem"
+                  }
+                  onClick={() => handleItemClick("all")}>All</li>
+          </Link>
+          
           {categories.map((c, i) => {
             return (
               <Link key={i} to={`/?category=${c.name}`} className="link">
-                <li className="categoriesListItem">{c.name}</li>
+                <li
+                  className={
+                    i == selectedItem
+                      ? "categoriesListItem checked"
+                      : "categoriesListItem"
+                  }
+                  onClick={() => handleItemClick(i)}
+                >
+                  {c.name}
+                </li>
               </Link>
             );
           })}
