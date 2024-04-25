@@ -9,17 +9,18 @@ function Sidebar({ path, username }) {
   const [categories, setCategories] = useState([]);
   const [user, setUser] = useState({});
   //const {user} = useContext(Context);
-  const publicFolder = "http://localhost:5000/images/";
+  const publicFolder = import.meta.env.VITE_API_PUBLIC;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const getCategories = async () => {
-      const res = await axios.get("http://localhost:5000/api/categories");
+      const res = await axios.get(apiUrl + "/categories");
       setCategories(res.data);
     };
 
     const getUser = async () => {
-      const res = await axios.get(
-        "http://localhost:5000/api/users/info/" + username
+      const res = await axios.get(apiUrl +
+        "/users/info/" + username
       );
       setUser(res.data);
     };

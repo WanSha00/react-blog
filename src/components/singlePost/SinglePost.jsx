@@ -6,12 +6,14 @@ import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 
 function SinglePost() {
-  const location = useLocation();
-  const path = location.pathname.split("/")[2];
-  const [post, setPost] = useState({});
-  const publicFolder = "http://localhost:5000/images/";
-  const { user } = useContext(Context);
+  const publicFolder = import.meta.env.VITE_API_PUBLIC;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];  
+  
+  const { user } = useContext(Context);
+  const [post, setPost] = useState({});
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(user.photo);
@@ -22,7 +24,7 @@ function SinglePost() {
 
   useEffect(() => {
     const getCategories = async () => {
-      const res = await axios.get("http://localhost:5000/api/categories");
+      const res = await axios.get(apiUrl + "/categories");
       setAllCategories(res.data);
     };
 
@@ -31,7 +33,7 @@ function SinglePost() {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("http://localhost:5000/api/posts/" + path);
+      const res = await axios.get(apiUrl + "/posts/" + path);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
@@ -54,7 +56,7 @@ function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete("http://localhost:5000/api/posts/" + path, {
+      await axios.delete(apiUrl + "/posts/" + path, {
         data: { username: user.username },
       });
       window.location.replace("/");
@@ -78,10 +80,10 @@ function SinglePost() {
       updatedPost.photo = filename;
     }
     try {
-      await axios.put("http://localhost:5000/api/posts/" + path, updatedPost);
+      await axios.put(apiUrl + "/posts/" + path, updatedPost);
 
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post(apiUrl + "/upload", data);
       } catch (error) {}
 
       window.location.reload();

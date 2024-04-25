@@ -5,7 +5,7 @@ import { Context } from "../../context/Context";
 
 function TopBar() {
   const {user, dispatch} = useContext(Context);
-  const publicFolder = "http://localhost:5000/images/";
+  const publicFolder = import.meta.env.VITE_API_PUBLIC;
 
   const handleLogout = ()=>{
 

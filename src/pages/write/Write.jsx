@@ -10,10 +10,11 @@ function Write() {
   const [categories, setCategories] = useState([]);
   const { user } = useContext(Context);
   const [allCategories, setAllCategories] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const getCategories = async () => {
-      const res = await axios.get("http://localhost:5000/api/categories");
+      const res = await axios.get(apiUrl + "/categories");
       setAllCategories(res.data);
     };
 
@@ -52,9 +53,9 @@ function Write() {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/posts", newPost);
+      const res = await axios.post(apiUrl + "/posts", newPost);
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post(apiUrl + "/upload", data);
       } catch (error) {}
       window.location.replace("/post/" + res.data._id);
     } catch (error) {

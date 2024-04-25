@@ -11,12 +11,13 @@ function Profile() {
   const [posts, setPosts] = useState([]);
   const { search } = useLocation();
   const { user } = useContext(Context);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     
     const fetchPosts = async () => {
-      const res = await axios.get(
-        "http://localhost:5000/api/posts?user=" +
+      const res = await axios.get(apiUrl+
+        "/posts?user=" +
           user.username +
           "&" +
           search.split("?")[1]

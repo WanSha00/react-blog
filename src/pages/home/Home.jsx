@@ -10,11 +10,12 @@ import Categories from "../../components/categories/Categories";
 function Home() {
   const [posts, setPosts] = useState([]);
   const { search } = useLocation();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     console.log("home search: " + search)
     const fetchPosts = async () => {
-      const res = await axios.get("http://localhost:5000/api/posts" + search);
+      const res = await axios.get(apiUrl + "/posts" + search);
       setPosts(res.data);
     };
 

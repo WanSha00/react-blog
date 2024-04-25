@@ -11,12 +11,13 @@ function Author() {
   const [posts, setPosts] = useState([]);
   const {pathname, search } = useLocation();  
   const username = pathname.split("/")[2];
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     
     const fetchPosts = async () => {
-      const res = await axios.get(
-        "http://localhost:5000/api/posts?user=" +
+      const res = await axios.get(apiUrl+
+        "/posts?user=" +
           username +
           "&" +
           search.split("?")[1]

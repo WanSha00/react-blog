@@ -8,13 +8,14 @@ function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const {dispatch, isFetching } = useContext(Context);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post(apiUrl + "/auth/login", {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });

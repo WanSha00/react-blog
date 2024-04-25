@@ -13,7 +13,8 @@ function Settings() {
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState(user.bio);
   const [success, setSuccess] = useState(false);
-  const publicFolder = "http://localhost:5000/images/";
+  const publicFolder = import.meta.env.VITE_API_PUBLIC;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleLogout = ()=>{
 
@@ -54,14 +55,14 @@ function Settings() {
     }
 
     try {
-      await axios.put("http://localhost:5000/api/users/" + user._id, updatedUser);
+      await axios.put(apiUrl + "/users/" + user._id, updatedUser);
       setSuccess(true);
       setTimeout(() => {
         handleLogout();
       }, 2500);
       
       try {
-        await axios.post("http://localhost:5000/api/upload", data);
+        await axios.post(apiUrl + "/upload", data);
       } catch (error) {}
       
     } catch (error) {
@@ -72,7 +73,7 @@ function Settings() {
   const handleDelete = async()=>{
 
     try {
-      await axios.delete("http://localhost:5000/api/users/" + user._id, {
+      await axios.delete(apiUrl + "/users/" + user._id, {
         data: { userID: user._id },
       });
       setTimeout(() => {

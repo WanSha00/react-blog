@@ -2,7 +2,7 @@ import "./Post.css";
 import {Link} from "react-router-dom";
 
 function Post({ post }) {
-  const publicFolder = "http://localhost:5000/images/";
+  const publicFolder = import.meta.env.VITE_API_PUBLIC;
 
   return (
     <>

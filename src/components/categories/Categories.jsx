@@ -9,6 +9,7 @@ function Categories() {
   const [categories, setCategories] = useState([]);
   const [selectedItem, setSelectedItem] = useState("all");
   const {search} = useLocation();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleItemClick = (index) => {
     setSelectedItem(index);
@@ -16,7 +17,7 @@ function Categories() {
 
   useEffect(() => {
     const getCategories = async () => {
-      const res = await axios.get(import.meta.env.VITE_API_URL + "/categories");
+      const res = await axios.get(apiUrl + "/categories");
       setCategories(res.data);
     };
 
