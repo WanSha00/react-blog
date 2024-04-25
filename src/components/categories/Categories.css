@@ -15,3 +15,8 @@
     color: #be9656;
     font-weight: bold;
 }
+
+.categoriesSelected{
+    background-color: #be9656;
+    color: white;
+}

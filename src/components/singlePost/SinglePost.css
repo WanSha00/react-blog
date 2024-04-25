@@ -88,6 +88,12 @@
     background-color: teal;
 }
 
+.updateButton:disabled{
+    background-color: rgb(110, 140, 140);
+    cursor: not-allowed;
+
+}
+
 .cancelButton{
     background-color: coral;
 }

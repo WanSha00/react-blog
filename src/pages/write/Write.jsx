@@ -120,7 +120,7 @@ function Write() {
               required
             ></textarea>
           </div>
-          <button className="writeSubmit" type="submit">
+          <button className="writeSubmit" type="submit" disabled = {categories.length == 0? true: false}>
             Publish
           </button>
         </form>

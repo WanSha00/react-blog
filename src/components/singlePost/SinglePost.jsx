@@ -15,8 +15,19 @@ function SinglePost() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(user.photo);
+  const [postCategories, setPostCategories] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
   const [updateMode, setUpdateMode] = useState(false);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const res = await axios.get("http://localhost:5000/api/categories");
+      setAllCategories(res.data);
+    };
+
+    getCategories();
+  }, []);
 
   useEffect(() => {
     const getPost = async () => {
@@ -24,11 +35,22 @@ function SinglePost() {
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      setPostCategories(res.data.categories);
       setCategories(res.data.categories);
     };
 
     getPost();
   }, [path]);
+
+  const handleChange = (e) => {
+    let isChecked = e.target.checked;
+
+    if (isChecked) {
+      setCategories([...categories, e.target.id]);
+    } else {
+      setCategories(categories.filter((c) => c != e.target.id));
+    }
+  };
 
   const handleDelete = async () => {
     try {
@@ -40,10 +62,12 @@ function SinglePost() {
   };
 
   const handleUpdate = async () => {
+    
     const updatedPost = {
       title,
       desc,
       username: user.username,
+      categories,
     };
 
     const data = new FormData();
@@ -91,7 +115,7 @@ function SinglePost() {
           )}
 
           <div className="postCategories">
-            {categories.map((c, i) => {
+            {postCategories.map((c, i) => {
               return (
                 <span key={i} className="postCategory">
                   {c}
@@ -99,6 +123,28 @@ function SinglePost() {
               );
             })}
           </div>
+
+          {updateMode && (
+            <>
+              {allCategories.map((c, i) => {
+                return (
+                  <>
+                    <div key={i} className="checkboxWrapper">
+                      <input
+                        type="checkbox"
+                        id={c.name}
+                        name="categories"
+                        value={c.name}
+                        onChange={handleChange}
+                        checked={categories.includes(c.name) ? true : false}
+                      />
+                      <label htmlFor={c.name}>{c.name}</label>
+                    </div>
+                  </>
+                );
+              })}
+            </>
+          )}
 
           {updateMode ? (
             <input
@@ -155,7 +201,7 @@ function SinglePost() {
           {updateMode && (
             <>
               <div className="editButtons">
-                <button className="updateButton" onClick={handleUpdate}>
+                <button className="updateButton" onClick={handleUpdate} disabled = {categories.length == 0? true: false}>
                   Update
                 </button>
 

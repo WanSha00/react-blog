@@ -67,6 +67,11 @@
 
 }
 
+.writeSubmit:disabled{
+    background-color: rgb(110, 140, 140);
+    cursor: not-allowed;
+}
+
 .checkboxWrapper{
     display: flex;
     gap: 10px;
