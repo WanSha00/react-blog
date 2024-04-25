@@ -18,10 +18,8 @@ function TopBar() {
     <>
       <div className="top">
         <div className="topLeft">
-          <i className="topIcon fa-brands fa-square-facebook"></i>
-          <i className="topIcon fa-brands fa-square-x-twitter"></i>
-          <i className="topIcon fa-brands fa-square-pinterest"></i>
-          <i className="topIcon fa-brands fa-square-instagram"></i>
+          <span>{import.meta.env.VITE_APP_NAME}</span>
+          <i className="topIcon fa-solid fa-wand-magic-sparkles"></i>
         </div>
         <div className="topCenter">
           <ul className="topList">
@@ -30,16 +28,6 @@ function TopBar() {
                 HOME
               </Link>
             </li>
-            {/* <li className="topListItem">
-              <Link className="link" to="/about">
-                ABOUT
-              </Link>
-            </li>
-            <li className="topListItem">
-              <Link className="link" to="/contact">
-                CONTACT
-              </Link>
-            </li> */}
             <li className="topListItem">
               <Link className="link" to="/write">
                 WRITE
@@ -68,20 +56,9 @@ function TopBar() {
             </>
           ) : (
             ""
-            // <ul className="topList">
-            //   <li className="topListItem">
-            //     <Link className="link" to="/login">
-            //       LOGIN
-            //     </Link>
-            //   </li>
-            //   <li className="topListItem">
-            //     <Link className="link" to="/register">
-            //       REGISTER
-            //     </Link>
-            //   </li>
-            // </ul>
+           
           )}
-          {/* <i className="topSearchIcon fa-solid fa-magnifying-glass"></i> */}
+
           
         </div>
       </div>

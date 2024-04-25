@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import "./Categories.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../context/Context";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState("all");
+  const {search} = useLocation();
 
   const handleItemClick = (index) => {
     setSelectedItem(index);
@@ -15,7 +16,7 @@ function Categories() {
 
   useEffect(() => {
     const getCategories = async () => {
-      const res = await axios.get("http://localhost:5000/api/categories");
+      const res = await axios.get(import.meta.env.VITE_API_URL + "/categories");
       setCategories(res.data);
     };
 
@@ -28,7 +29,7 @@ function Categories() {
         <ul className="categoriesList">
           <Link to='/' className="link">
           <li className={
-                    "all" == selectedItem
+                    "all" == selectedItem || search==""
                       ? "categoriesListItem checked"
                       : "categoriesListItem"
                   }
@@ -40,7 +41,7 @@ function Categories() {
               <Link key={i} to={`/?category=${c.name}`} className="link">
                 <li
                   className={
-                    i == selectedItem
+                    i == selectedItem && search!=""
                       ? "categoriesListItem checked"
                       : "categoriesListItem"
                   }

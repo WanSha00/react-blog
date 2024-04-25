@@ -1,11 +1,30 @@
 .posts{
-    flex: 9;
+    /* flex: 9; */
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px; 
     justify-content: center;
+    align-items: flex-start;
 }
 
 span{
     font-size: 25px;
+}
+
+.total{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Josefin Sans', sans-serif;
+    color: #444;
+    padding-bottom: 10px;
+}
+
+.main{
+    flex: 9;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 0px;
+    padding-top: 20px;
 }
