@@ -41,6 +41,7 @@ function Register() {
             name=""
             id=""
             placeholder="Enter your username..."
+            maxlength="10"
             required
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -59,6 +60,7 @@ function Register() {
             name=""
             id=""
             placeholder="Enter your password..."
+            minlength="4"
             required
             onChange={(e) => setPassword(e.target.value)}
           />

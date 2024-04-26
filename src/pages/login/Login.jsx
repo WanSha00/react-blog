@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
@@ -7,7 +7,8 @@ import axios from "axios";
 function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const {dispatch, isFetching } = useContext(Context);
+  const { dispatch, isFetching } = useContext(Context);
+  const [message, setMessage] = useState("");
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
@@ -20,10 +21,11 @@ function Login() {
         password: passwordRef.current.value,
       });
 
-      if(res){
-        dispatch({type: "LOGIN_SUCCESS", payload:res.data});
+      if (res) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       }
     } catch (error) {
+      setMessage(error.response.data);
       dispatch({ type: "LOGIN_FAIL" });
     }
   };
@@ -51,6 +53,8 @@ function Login() {
             required
             ref={passwordRef}
           />
+
+          <span className="message">{message}</span>
           <button className="loginButton" type="submit" disabled={isFetching}>
             Login
           </button>
