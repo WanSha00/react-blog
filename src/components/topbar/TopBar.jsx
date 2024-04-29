@@ -33,11 +33,14 @@ function TopBar() {
                 WRITE
               </Link>
             </li>
-            <li className="topListItem">
-              <Link className="link" to="/profile">
+            {user && (
+              <li className="topListItem">
+              <Link className="link" to={"/profile/" + user._id}>
                 PROFILE
               </Link>
             </li>
+            )}
+            
             <li className="topListItem" onClick={handleLogout}>{user && "LOGOUT"}</li>
           </ul>
         </div>

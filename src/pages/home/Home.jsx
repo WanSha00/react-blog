@@ -1,7 +1,5 @@
 import "./Home.css";
-import Header from "../../components/header/Header";
 import Posts from "../../components/posts/Posts";
-import Sidebar from "../../components/sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -13,7 +11,7 @@ function Home() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    console.log("home search: " + search)
+    
     const fetchPosts = async () => {
       const res = await axios.get(apiUrl + "/posts" + search);
       setPosts(res.data);
@@ -24,11 +22,9 @@ function Home() {
 
   return (
     <>
-      {/* <Header /> */}
       <Categories />
       <div className="home">
         <Posts posts={posts} category={search.split("?")[1] == undefined? "all": search.split("?")[1].split("=")[1]}/>
-        {/* <Sidebar /> */}
       </div>
     </>
   );

@@ -6,26 +6,28 @@ import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 
 function SinglePost() {
-  const publicFolder = import.meta.env.VITE_API_PUBLIC;
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const location = useLocation();
-  const path = location.pathname.split("/")[2];  
-  
+  const postId = location.pathname.split("/")[2];
+
   const { user } = useContext(Context);
   const [post, setPost] = useState({});
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [file, setFile] = useState(user.photo);
+  const [updatedCategories, setUpdatedCategories] = useState([]);
+  const [file, setFile] = useState(null);
+  const [cloudinaryId, setCloudinaryId] = useState("");
+
   const [postCategories, setPostCategories] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [allCategories, setAllCategories] = useState([]);
+  const [categoriesMenu, setCategoriesMenu] = useState([]);
+  const [authorName, setAuthorName] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
   useEffect(() => {
     const getCategories = async () => {
       const res = await axios.get(apiUrl + "/categories");
-      setAllCategories(res.data);
+      setCategoriesMenu(res.data);
     };
 
     getCategories();
@@ -33,59 +35,68 @@ function SinglePost() {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get(apiUrl + "/posts/" + path);
+      const res = await axios.get(apiUrl + "/posts/" + postId);
+      const author = await axios.get(apiUrl + "/users/" + res.data.user);
+
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      setUpdatedCategories(res.data.categories);
+      setEditPhoto(res.data.photo), setCloudinaryId(res.data.cloudinaryId);
+
       setPostCategories(res.data.categories);
-      setCategories(res.data.categories);
+      setAuthorName(author.data.username);
     };
 
     getPost();
-  }, [path]);
+  }, []);
 
   const handleChange = (e) => {
     let isChecked = e.target.checked;
 
     if (isChecked) {
-      setCategories([...categories, e.target.id]);
+      setUpdatedCategories([...updatedCategories, e.target.id]);
     } else {
-      setCategories(categories.filter((c) => c != e.target.id));
+      setUpdatedCategories(updatedCategories.filter((c) => c != e.target.id));
     }
   };
 
   const handleDelete = async () => {
     try {
-      await axios.delete(apiUrl + "/posts/" + path, {
-        data: { username: user.username },
-      });
+      await axios.delete(apiUrl + "/posts/" + post._id);
       window.location.replace("/");
     } catch (error) {}
   };
 
   const handleUpdate = async () => {
-    
-    const updatedPost = {
-      title,
-      desc,
-      username: user.username,
-      categories,
-    };
-
+    let updatedPost = {};
     const data = new FormData();
     if (file) {
-      const filename = Date.now() + file.name;
-      data.append("name", filename);
       data.append("file", file);
-      updatedPost.photo = filename;
-    }
-    try {
-      await axios.put(apiUrl + "/posts/" + path, updatedPost);
-
       try {
-        await axios.post(apiUrl + "/upload", data);
-      } catch (error) {}
+        const res = await axios.post(apiUrl + "/upload", data);
+        updatedPost = {
+          title,
+          desc,
+          categories: updatedCategories,
+          photo: res.data.url,
+          cloudinaryId: res.data.id,
+        };
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      updatedPost = {
+        title,
+        desc,
+        categories: updatedCategories,
+        photo,
+        cloudinaryId,
+      };
+    }
 
+    try {
+      await axios.put(apiUrl + "/posts/" + post._id, updatedPost);
       window.location.reload();
     } catch (error) {}
   };
@@ -97,7 +108,7 @@ function SinglePost() {
           {post.photo && (
             <img
               className="singlePostImg"
-              src={file ? URL.createObjectURL(file) : publicFolder + post.photo}
+              src={file ? URL.createObjectURL(file) : post.photo}
               alt=""
             />
           )}
@@ -128,7 +139,7 @@ function SinglePost() {
 
           {updateMode && (
             <>
-              {allCategories.map((c, i) => {
+              {categoriesMenu.map((c, i) => {
                 return (
                   <>
                     <div key={i} className="checkboxWrapper">
@@ -138,7 +149,9 @@ function SinglePost() {
                         name="categories"
                         value={c.name}
                         onChange={handleChange}
-                        checked={categories.includes(c.name) ? true : false}
+                        checked={
+                          updatedCategories.includes(c.name) ? true : false
+                        }
                       />
                       <label htmlFor={c.name}>{c.name}</label>
                     </div>
@@ -159,7 +172,7 @@ function SinglePost() {
           ) : (
             <h1 className="singlePostTitle">
               {post.title}
-              {post.username == user?.username && (
+              {authorName == user?.username && (
                 <div className="singlePostEdit">
                   <i
                     className="singlePostEditIcon fa-solid fa-pen-to-square"
@@ -177,15 +190,9 @@ function SinglePost() {
           <div className="singlePostInfo">
             <span className="singlePostInfoAuthor">
               Author :
-              {user.username == post.username ? (
-                <Link to="/profile" className="link">
-                  <b> {post.username}</b>
-                </Link>
-              ) : (
-                <Link to={`/author/${post.username}`} className="link">
-                  <b> {post.username}</b>
-                </Link>
-              )}
+              <Link to={"/profile/" + post.user} className="link">
+                <b> {authorName}</b>
+              </Link>
             </span>
             <span className="singlePostInfoDate">
               {new Date(post.createdAt).toDateString()}
@@ -203,7 +210,11 @@ function SinglePost() {
           {updateMode && (
             <>
               <div className="editButtons">
-                <button className="updateButton" onClick={handleUpdate} disabled = {categories.length == 0? true: false}>
+                <button
+                  className="updateButton"
+                  onClick={handleUpdate}
+                  disabled={updatedCategories.length == 0 ? true : false}
+                >
                   Update
                 </button>
 

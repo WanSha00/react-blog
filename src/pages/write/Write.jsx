@@ -23,41 +23,33 @@ function Write() {
 
   const handleChange = (e) => {
     let isChecked = e.target.checked;
-    console.log(e.target.id + " is " + isChecked);
-    if(isChecked){
+    if (isChecked) {
       setCategories([...categories, e.target.id]);
-    }else{
-      setCategories(categories.filter(c => c!=e.target.id))
+    } else {
+      setCategories(categories.filter((c) => c != e.target.id));
     }
-    
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newPost = {
-      title,
-      desc,
-      username: user.username,
-      categories
-    };
-
     const data = new FormData();
-    if (file) {
-      const filename = Date.now() + file.name;
-      data.append("name", filename);
-      data.append("file", file);
-      newPost.photo = filename;
-    } else {
-      newPost.photo = ".";
-    }
+    data.append("file", file);
 
     try {
-      const res = await axios.post(apiUrl + "/posts", newPost);
-      try {
-        await axios.post(apiUrl + "/upload", data);
-      } catch (error) {}
-      window.location.replace("/post/" + res.data._id);
+      const res = await axios.post(apiUrl + "/upload", data);
+
+      const newPost = {
+        title,
+        desc,
+        user: user._id,
+        categories,
+        photo: res.data.url,
+        cloudinaryId: res.data.id,
+      };
+
+      const newPostRes = await axios.post(apiUrl + "/posts", newPost);
+      window.location.replace("/post/" + newPostRes.data._id);
     } catch (error) {
       console.log(error);
     }
@@ -99,15 +91,16 @@ function Write() {
             {allCategories.map((c, i) => {
               return (
                 <>
-                <div key={i} className="checkboxWrapper"><input
-                    type="checkbox"
-                    id={c.name}
-                    name="categories"
-                    value={c.name}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor={c.name}>{c.name}</label></div>
-                  
+                  <div key={i} className="checkboxWrapper">
+                    <input
+                      type="checkbox"
+                      id={c.name}
+                      name="categories"
+                      value={c.name}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor={c.name}>{c.name}</label>
+                  </div>
                 </>
               );
             })}
@@ -121,7 +114,11 @@ function Write() {
               required
             ></textarea>
           </div>
-          <button className="writeSubmit" type="submit" disabled = {categories.length == 0? true: false}>
+          <button
+            className="writeSubmit"
+            type="submit"
+            disabled={categories.length == 0 || !file ? true : false}
+          >
             Publish
           </button>
         </form>

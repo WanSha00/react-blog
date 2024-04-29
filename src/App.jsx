@@ -8,7 +8,6 @@ import Profile from "./pages/profile/Profile";
 import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import Author from "./pages/author/Author";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Context } from "./context/Context";
 
@@ -33,7 +32,7 @@ function App() {
           element={user ? <Write /> : <Login />}
         ></Route>
         <Route
-          path="/profile"
+          path="/profile/:userId"
           element={user ? <Profile /> : <Login />}
         ></Route>
         <Route
@@ -43,10 +42,6 @@ function App() {
         <Route
           path="/post/:postId"
           element={user ? <Single /> : <Login />}
-        ></Route>
-        <Route
-          path="/author/:author"
-          element={user ? <Author /> : <Login />}
         ></Route>
       </Routes>
     </BrowserRouter>

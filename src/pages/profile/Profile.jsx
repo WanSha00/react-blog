@@ -1,5 +1,4 @@
 import "./Profile.css";
-import Header from "../../components/header/Header";
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useContext, useEffect, useState } from "react";
@@ -9,16 +8,27 @@ import { Context } from "../../context/Context";
 
 function Profile() {
   const [posts, setPosts] = useState([]);
-  const { search } = useLocation();
+  const { pathname,search } = useLocation();
   const { user } = useContext(Context);
+  const profileId = pathname.split("/")[2];
+  const [authorName, setAuthorName] = useState("");
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    
+    const getUser = async () => {
+      const res = await axios.get(apiUrl + "/users/" + profileId);
+      setAuthorName(res.data.username);
+    };
+
+    getUser();
+  }, [pathname]);
+
+  useEffect(() => {
+  
     const fetchPosts = async () => {
       const res = await axios.get(apiUrl+
         "/posts?user=" +
-          user.username +
+        profileId +
           "&" +
           search.split("?")[1]
       );
@@ -27,15 +37,14 @@ function Profile() {
     };
 
     fetchPosts();
-  }, [search]);
+  }, [pathname,search]);
 
   return (
     <>
-      {/* <Header /> */}
-      <h1 className="profileTitle">My Profile</h1>
+      <h1 className="profileTitle">{pathname.split("/")[2] == user._id? "My Profile" : `${authorName}'s page`}</h1>
       <div className="profile">
         <Posts posts={posts} category={search.split("?")[1] == undefined? "all": search.split("?")[1].split("=")[1]} />
-        <Sidebar path="profile" username={user.username} />
+        <Sidebar profileId={profileId} />
       </div>
     </>
   );

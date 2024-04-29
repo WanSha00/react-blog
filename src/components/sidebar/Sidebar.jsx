@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import "./Sidebar.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../../context/Context";
 
-function Sidebar({ path, username }) {
+function Sidebar({ profileId }) {
   const [categories, setCategories] = useState([]);
   const [user, setUser] = useState({});
-  //const {user} = useContext(Context);
-  const publicFolder = import.meta.env.VITE_API_PUBLIC;
+
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -18,16 +15,17 @@ function Sidebar({ path, username }) {
       setCategories(res.data);
     };
 
+    getCategories();
+  }, []);
+
+  useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get(apiUrl +
-        "/users/info/" + username
-      );
+      const res = await axios.get(apiUrl + "/users/" + profileId);
       setUser(res.data);
     };
 
     getUser();
-    getCategories();
-  }, []);
+  }, [profileId]);
 
   return (
     <>
@@ -38,7 +36,7 @@ function Sidebar({ path, username }) {
             src={
               user.profilePic == ""
                 ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                : publicFolder + user.profilePic
+                : user.profilePic
             }
             alt=""
           />
@@ -52,20 +50,16 @@ function Sidebar({ path, username }) {
               return (
                 <Link
                   key={i}
-                  to={`/${path}/?category=${c.name}`}
+                  to={`/profile/${profileId}?category=${c.name}`}
                   className="link"
                 >
                   <li className="sidebarListItem">{c.name}</li>
                 </Link>
               );
             })}
-            <Link
-                
-                  to={`/${path}`}
-                  className="link"
-                >
-                  <li className="sidebarListItem">All</li>
-                </Link>
+            <Link to={`/profile/${profileId}`} className="link">
+              <li className="sidebarListItem">All</li>
+            </Link>
           </ul>
         </div>
       </div>
