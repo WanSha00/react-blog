@@ -17,6 +17,7 @@ function SinglePost() {
   const [desc, setDesc] = useState("");
   const [updatedCategories, setUpdatedCategories] = useState([]);
   const [file, setFile] = useState(null);
+  const [photo, setPhoto] = useState("");
   const [cloudinaryId, setCloudinaryId] = useState("");
 
   const [postCategories, setPostCategories] = useState([]);
@@ -42,7 +43,8 @@ function SinglePost() {
       setTitle(res.data.title);
       setDesc(res.data.desc);
       setUpdatedCategories(res.data.categories);
-      setEditPhoto(res.data.photo), setCloudinaryId(res.data.cloudinaryId);
+      setPhoto(res.data.photo);
+      setCloudinaryId(res.data.cloudinaryId);
 
       setPostCategories(res.data.categories);
       setAuthorName(author.data.username);
