@@ -10,6 +10,8 @@ function Write() {
   const [categories, setCategories] = useState([]);
   const { user } = useContext(Context);
   const [allCategories, setAllCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -32,6 +34,7 @@ function Write() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const data = new FormData();
     data.append("file", file);
@@ -49,14 +52,16 @@ function Write() {
       };
 
       const newPostRes = await axios.post(apiUrl + "/posts", newPost);
+      setLoading(false);
       window.location.replace("/post/" + newPostRes.data._id);
     } catch (error) {
-      console.log(error);
+      setMessage("Error.")
     }
   };
 
   return (
     <>
+    <span>{message}</span>
       <div className="write">
         <img
           className="writeImg"
@@ -117,7 +122,7 @@ function Write() {
           <button
             className="writeSubmit"
             type="submit"
-            disabled={categories.length == 0 || !file ? true : false}
+            disabled={categories.length == 0 || !file || loading==true ? true : false}
           >
             Publish
           </button>

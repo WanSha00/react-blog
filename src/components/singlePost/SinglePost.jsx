@@ -24,6 +24,8 @@ function SinglePost() {
   const [categoriesMenu, setCategoriesMenu] = useState([]);
   const [authorName, setAuthorName] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const getCategories = async () => {
@@ -71,6 +73,7 @@ function SinglePost() {
   };
 
   const handleUpdate = async () => {
+    setLoading(true);
     let updatedPost = {};
     const data = new FormData();
     if (file) {
@@ -100,12 +103,16 @@ function SinglePost() {
     try {
       await axios.put(apiUrl + "/posts/" + post._id, updatedPost);
       window.location.reload();
-    } catch (error) {}
+      setLoading(false);
+    } catch (error) {
+      setMessage("Error.")
+    }
   };
 
   return (
     <>
       <div className="singlePost">
+        <span>{message}</span>
         <div className="singlePostWrapper">
           {post.photo && (
             <img
@@ -215,7 +222,7 @@ function SinglePost() {
                 <button
                   className="updateButton"
                   onClick={handleUpdate}
-                  disabled={updatedCategories.length == 0 ? true : false}
+                  disabled={loading}
                 >
                   Update
                 </button>
@@ -223,6 +230,7 @@ function SinglePost() {
                 <button
                   className="cancelButton"
                   onClick={() => setUpdateMode(false)}
+                  disabled={loading}
                 >
                   Cancel
                 </button>

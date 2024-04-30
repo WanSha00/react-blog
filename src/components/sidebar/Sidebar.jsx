@@ -34,9 +34,9 @@ function Sidebar({ profileId }) {
           <span className="sidebarTitle">ABOUT ME</span>
           <img
             src={
-              user.profilePic == ""
+              user.photo == ""
                 ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                : user.profilePic
+                : user.photo
             }
             alt=""
           />
