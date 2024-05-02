@@ -55,6 +55,7 @@ function Write() {
       setLoading(false);
       window.location.replace("/post/" + newPostRes.data._id);
     } catch (error) {
+      console.log(error);
       setMessage("Error.")
     }
   };

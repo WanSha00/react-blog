@@ -9,7 +9,8 @@
     font-family:'Josefin Sans', sans-serif;
     z-index: 999;
     border-bottom: 3px solid #afadad;
-    padding: 5px 0px;
+    padding: 5px;
+    justify-content: space-around;
 }
 
 .topLeft, .topRight{

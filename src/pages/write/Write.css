@@ -7,7 +7,9 @@
 }
 
 .writeImg{
-    margin-left: 150px;
+
+    display: flex;
+    margin: auto;
     width: 70vw;
     height: 250px;
     border-radius: 10px;
@@ -19,9 +21,9 @@
 }
 
 .writeFormGroup {
-    margin-left: 150px;
+    
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .writeFileIcon {

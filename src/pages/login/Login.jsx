@@ -25,7 +25,8 @@ function Login() {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       }
     } catch (error) {
-      setMessage(error.response.data);
+      console.log("error: " + error)
+      //setMessage(error.response.data);
       dispatch({ type: "LOGIN_FAIL" });
     }
   };
