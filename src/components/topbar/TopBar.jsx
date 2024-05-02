@@ -8,7 +8,7 @@ function TopBar() {
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
-    window.location.replace("/login");
+    window.location.replace("/");
   };
 
   return (
