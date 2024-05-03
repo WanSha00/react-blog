@@ -64,3 +64,13 @@
     display: flex;
     gap: 10px;
 }
+
+@media screen and (max-width: 480px) {  
+ .post{
+    width: 60vw;
+ }
+
+ .postImg{
+    height: 200px;
+ }
+}

@@ -102,7 +102,7 @@ function SinglePost() {
 
     try {
       await axios.put(apiUrl + "/posts/" + post._id, updatedPost);
-      window.location.replace("/");
+      window.location.reload();
       setLoading(false);
     } catch (error) {
       setMessage("Error.")
