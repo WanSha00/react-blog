@@ -67,10 +67,20 @@
 
 @media screen and (max-width: 480px) {  
  .post{
-    width: 60vw;
+    width: 70vw;
+    margin: 0px;
+    margin-bottom: 40px;
  }
 
  .postImg{
     height: 200px;
+ }
+
+ .postTitle{
+    font-size: 20px;
+ }
+
+ .postCategory{
+    font-size: 12px;
  }
 }

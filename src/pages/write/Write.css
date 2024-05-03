@@ -20,6 +20,7 @@
     
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .formCategories{
@@ -99,6 +100,10 @@
 
     .writeInput{
         font-size: 20px;
+    }
+
+    .writeSubmit{
+        font-size: 14px;
     }
 
 

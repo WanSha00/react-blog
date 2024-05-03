@@ -179,9 +179,12 @@ function SinglePost() {
               onChange={(e) => setTitle(e.target.value)}
             />
           ) : (
-            <h1 className="singlePostTitle">
+            <>
+             <h1 className="singlePostTitle">
               {post.title}
-              {authorName == user?.username && (
+              
+            </h1>
+            {authorName == user?.username && (
                 <div className="singlePostEdit">
                   <i
                     className="singlePostEditIcon fa-solid fa-pen-to-square"
@@ -193,7 +196,8 @@ function SinglePost() {
                   ></i>
                 </div>
               )}
-            </h1>
+            </>
+           
           )}
 
           <div className="singlePostInfo">
