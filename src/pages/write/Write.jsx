@@ -93,7 +93,7 @@ function Write() {
               required
             />
           </div>
-          <div className="writeFormGroup">
+          <div className="formCategories">
             {allCategories.map((c, i) => {
               return (
                 <>

@@ -16,14 +16,15 @@
     object-fit: cover;
 }
 
-.writeForm {
-    position: relative;
-}
-
-.writeFormGroup {
+.writeFormGroup, .formCategories {
     
     display: flex;
     justify-content: center;
+}
+
+.formCategories{
+    flex-wrap: wrap;
+    padding: 10px;
 }
 
 .writeFileIcon {
@@ -56,9 +57,7 @@
 }
 
 .writeSubmit{
-    position: absolute;
-    top: 20px;
-    right: 50px;
+    
     color: white;
     background-color: teal;
     padding: 10px;
@@ -66,6 +65,12 @@
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+
+    position: fixed;
+        top: auto;
+        bottom: 0;
+        right: 20px;
+        margin-bottom: 20px;
 
 }
 
@@ -80,4 +85,21 @@
     margin-right: 18px;
     font-size: 20px;
     color: #444;
+}
+
+@media screen and (max-width: 480px) {   
+
+    .write{
+        padding: 20px 0px;
+    }
+
+    .writeImg{
+        height: 200px;
+    }
+
+    .writeInput{
+        font-size: 20px;
+    }
+
+
 }

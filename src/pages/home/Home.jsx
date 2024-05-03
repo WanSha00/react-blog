@@ -22,7 +22,7 @@ function Home() {
 
   return (
     <>
-      <Categories />
+      {/* <Categories /> */}
       <div className="home">
         <Posts posts={posts} category={search.split("?")[1] == undefined? "all": search.split("?")[1].split("=")[1]}/>
       </div>
