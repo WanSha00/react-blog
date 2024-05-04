@@ -2,57 +2,65 @@
     flex: 9;
 } */
 
-.singlePostWrapper{
+.singlePostWrapper {
     padding: 20px;
     /* padding-right: 0; */
     display: flex;
     flex-direction: column;
 }
 
-.singlePostImg{
+.singlePostImg {
     width: 100%;
     height: 300px;
     border-radius: 5px;
     object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin-bottom: 10px;
 }
 
-.singlePostTitle, .singlePostTitleInput{
+.singlePostTitle,
+.singlePostTitleInput {
     text-align: center;
     margin: 10px;
     font-family: 'Lora', serif;
     font-size: 28px;
 }
 
-.singlePostTitleInput{
+.singlePostTitleInput {
     border-radius: 5px;
     border: 1px solid lightgray;
 }
 
-.singlePostTitleInput:focus, .singlePostDescriptionInput:focus{
+.singlePostTitleInput:focus,
+.singlePostDescriptionInput:focus {
     outline: none;
     border: none;
     border-bottom: 1px solid lightgray;
 }
 
-.singlePostEdit{
-    float: right;
-    font-size: 16px;
+.singlePostEdit {
+    
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
 }
 
-.singlePostEditIcon{
+.singlePostEditIcon {
     margin-left: 10px;
     cursor: pointer;
 }
 
-.singlePostEditIcon:first-child{
+.singlePostEditIcon:first-child {
     color: teal;
 }
 
-.singlePostEditIcon:last-child{
+.singlePostEditIcon:last-child {
     color: tomato;
 }
 
-.singlePostInfo{
+.singlePostInfo {
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
@@ -61,26 +69,28 @@
     color: #b39656;
 }
 
-.singlePostDescription, .singlePostDescriptionInput{
+.singlePostDescription,
+.singlePostDescriptionInput {
     color: #666;
     font-size: 18px;
     line-height: 25px;
 }
 
-.singlePostDescription::first-letter{
+.singlePostDescription::first-letter {
     margin-left: 20px;
     font-size: 30px;
     font-weight: 600;
 }
 
-.editButtons{
+.editButtons {
     margin-top: 20px;
     display: flex;
     gap: 15px;
-    align-self: flex-end;
+
 }
 
-.updateButton, .cancelButton{
+.updateButton,
+.cancelButton {
     border: none;
     padding: 5px;
     width: 100px;
@@ -90,17 +100,17 @@
     margin-bottom: 20px;
 }
 
-.updateButton{
+.updateButton {
     background-color: teal;
 }
 
-.updateButton:disabled{
+.updateButton:disabled {
     background-color: rgb(110, 140, 140);
     cursor: not-allowed;
 
 }
 
-.cancelButton{
+.cancelButton {
     background-color: coral;
 }
 
@@ -108,7 +118,7 @@
     display: none;
 }
 
-.writeFileIcon{
+.writeFileIcon {
     margin-top: 20px;
     width: 25px;
     height: 25px;
@@ -122,18 +132,18 @@
     margin-bottom: 5px;
 }
 
-@media screen and (max-width: 480px) {  
+@media screen and (max-width: 600px) {
 
-    .singlePostImg{
+    .singlePostImg {
         height: 200px;
     }
 
-    .singlePostWrapper{
+    .singlePostWrapper {
         padding: 0px;
         padding-top: 20px;
     }
 
-    .singlePostTitle{
+    .singlePostTitle {
         font-size: 20px;
         display: flex;
         justify-content: center;
@@ -141,36 +151,29 @@
         margin: 10px 0px;
     }
 
-    .singlePostEdit{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 10px;
-    }
-
-    .singlePostInfo span{
+    .singlePostInfo span {
         font-size: 14px;
     }
 
-    .checkboxWrapper label{
+    .checkboxWrapper label {
         font-size: 15px;
-    
+
     }
 
-    .singlePostTitleInput{
+    .singlePostTitleInput {
         font-size: 18px;
     }
 
-    .singlePostDescriptionInput{
+    .singlePostDescriptionInput {
         font-size: 15px;
     }
 
-    .updateButton, .cancelButton{
+    .updateButton,
+    .cancelButton {
         width: 80px;
     }
 
-    .writeFileIcon{
+    .writeFileIcon {
         width: 15px;
         height: 15px;
         margin-top: 10px;

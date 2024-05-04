@@ -33,7 +33,8 @@ function Register() {
   return (
     <>
       <div className="register">
-        <span className="registerTitle">Register</span>
+      <div className="registerBox">
+        <span className="registerTitle">Registration</span>
         <form className="registerForm" onSubmit={handleSubmit}>
           <label>Username</label>
           <input
@@ -64,17 +65,19 @@ function Register() {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button className="registerButton" type="submit">
-            Register
+          {error && (<span className="message">Username/Email already taken.</span>)}
+          <button className="registerButton" type="submit" >
+            Sign up
           </button>
         </form>
-        <button className="registerLoginButton">
-          <Link className="link" to="/login">
-            Login
-          </Link>
-        </button>
-        {error && (<span className="error">Username/Email already taken.</span>)}
+        <p>
+            <Link className="link" to="/login">
+              I have an account
+            </Link>
+          </p>
+       
         
+        </div>
       </div>
     </>
   );

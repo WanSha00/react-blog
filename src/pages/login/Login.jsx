@@ -25,8 +25,7 @@ function Login() {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       }
     } catch (error) {
-      console.log("error: " + error)
-      //setMessage(error.response.data);
+      setMessage(error.response.data);
       dispatch({ type: "LOGIN_FAIL" });
     }
   };
@@ -34,37 +33,40 @@ function Login() {
   return (
     <>
       <div className="login">
-        <span className="loginTitle">Login</span>
-        <form className="loginForm" onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input
-            type="email"
-            name=""
-            id=""
-            placeholder="Enter your email..."
-            required
-            ref={emailRef}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            name=""
-            id=""
-            placeholder="Enter your password..."
-            required
-            ref={passwordRef}
-          />
+        <div className="loginBox">
+          <span className="loginTitle">Welcome back!</span>
+          <form className="loginForm" onSubmit={handleSubmit}>
+            <label>Email</label>
+            <input
+              type="email"
+              name=""
+              id=""
+              placeholder="Enter your email..."
+              required
+              ref={emailRef}
+            />
+            <label>Password</label>
+            <input
+              type="password"
+              name=""
+              id=""
+              placeholder="Enter your password..."
+              required
+              ref={passwordRef}
+            />
 
-          <span className="message">{message}</span>
-          <button className="loginButton" type="submit" disabled={isFetching}>
-            Login
-          </button>
-        </form>
-        <button className="loginRegisterButton">
-          <Link className="link" to="/register">
-            Register
-          </Link>
-        </button>
+            <span className="message">{message}</span>
+            <button className="loginButton" type="submit" disabled={isFetching}>
+              Sign in
+            </button>
+          </form>
+
+          <p>
+            <Link className="link" to="/register">
+              Create an account
+            </Link>
+          </p>
+        </div>
       </div>
     </>
   );
