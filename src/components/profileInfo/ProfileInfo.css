@@ -1,0 +1,58 @@
+.profileInfo {
+    display: none;
+}
+
+@media screen and (max-width: 480px) {
+
+    .profileInfo {
+        display: flex;
+        flex-direction: column;
+        background-color: #e7e5e5;
+        width: 90%;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 20px;
+        padding: 10px;
+        font-family: 'Lora', serif;
+    }
+
+    .profileInfoTop {
+
+        display: flex;
+    }
+
+    .profileInfo img {
+        width: 30%;
+        border-radius: 5px;
+        margin-left: 5px;
+    }
+
+    .profileDetails {
+        width: 250px;
+        padding-left: 20px;
+    }
+
+    .profileDetails p {
+        margin-top: 20px;
+    }
+
+    .profileCategories ul{
+        list-style: none;
+        display: flex;
+        justify-content: flex-start;
+        font-size: 18px;
+        flex-wrap: wrap;
+        
+    }
+
+    .profileCategories ul li{
+        margin-right: 20px;
+        margin-top: 15px;
+        
+    }
+
+    .profileCatChecked{
+        font-weight: bold;
+        
+    }
+}

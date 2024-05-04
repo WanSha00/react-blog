@@ -100,10 +100,15 @@
 
     .writeInput{
         font-size: 20px;
+        padding-bottom: 0px;
     }
 
     .writeSubmit{
         font-size: 14px;
+    }
+
+    .checkboxWrapper{
+        margin-top: 20px;
     }
 
 

@@ -8,8 +8,6 @@ function TopBar() {
   const { user, dispatch } = useContext(Context);
   const {pathname} = useLocation();
 
-  console.log(pathname)
-
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     window.location.replace("/");

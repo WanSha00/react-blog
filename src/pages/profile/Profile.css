@@ -1,11 +1,30 @@
-.profile{
+.profile {
     display: flex;
 }
 
-.profileTitle{
+.profilePageTitle {
     display: flex;
     margin-left: 10%;
     margin-top: 20px;
-    font-family:'Josefin Sans', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     color: #444;
+}
+
+@media screen and (max-width: 480px) {
+
+    .sidebar {
+        display: none;
+    }   
+
+    .profile {
+        flex-direction: column;
+    }
+
+    .profilePageTitle{
+        justify-content: center;
+        margin: auto;
+        margin-top: 20px;
+    }
+
+   
 }

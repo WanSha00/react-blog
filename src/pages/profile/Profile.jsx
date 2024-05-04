@@ -5,10 +5,11 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Context } from "../../context/Context";
+import ProfileInfo from "../../components/profileInfo/ProfileInfo";
 
 function Profile() {
   const [posts, setPosts] = useState([]);
-  const { pathname,search } = useLocation();
+  const { pathname, search } = useLocation();
   const { user } = useContext(Context);
   const profileId = pathname.split("/")[2];
   const [authorName, setAuthorName] = useState("");
@@ -24,27 +25,35 @@ function Profile() {
   }, [pathname]);
 
   useEffect(() => {
-  
     const fetchPosts = async () => {
-      const res = await axios.get(apiUrl+
-        "/posts?user=" +
-        profileId +
-          "&" +
-          search.split("?")[1]
+      const res = await axios.get(
+        apiUrl + "/posts?user=" + profileId + "&" + search.split("?")[1]
       );
 
       setPosts(res.data);
     };
 
     fetchPosts();
-  }, [pathname,search]);
+  }, [pathname, search]);
 
   return (
     <>
-      <h1 className="profileTitle">{pathname.split("/")[2] == user._id? "My Profile" : `${authorName}'s page`}</h1>
+      <h1 className="profilePageTitle">
+        {pathname.split("/")[2] == user._id
+          ? "My Profile"
+          : `${authorName}'s page`}
+      </h1>
       <div className="profile">
-        <Posts posts={posts} category={search.split("?")[1] == undefined? "all": search.split("?")[1].split("=")[1]} />
-        <Sidebar profileId={profileId} />
+        <ProfileInfo profileId={profileId}/>
+        <Posts
+          posts={posts}
+          category={
+            search.split("?")[1] == undefined
+              ? "all"
+              : search.split("?")[1].split("=")[1]
+          }
+        />
+        <Sidebar className="sidebar" profileId={profileId} />
       </div>
     </>
   );

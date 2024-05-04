@@ -23,6 +23,11 @@
     font-size: 28px;
 }
 
+.singlePostTitleInput{
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
 .singlePostTitleInput:focus, .singlePostDescriptionInput:focus{
     outline: none;
     border: none;
@@ -168,5 +173,6 @@
         height: 15px;
         margin-top: 10px;
     }
+
 
 }
