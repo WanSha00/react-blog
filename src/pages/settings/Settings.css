@@ -1,5 +1,6 @@
 .settings {
     display: flex;
+    font-family:'Josefin Sans', sans-serif;
 }
 
 .settingsWrapper {
@@ -24,7 +25,7 @@
 }
 
 .settingsDeleteTitle {
-    font-size: 12px;
+    font-size: 15px;
     color: red;
     cursor: pointer;
 }
@@ -89,6 +90,27 @@
     color: green;
     margin-top: 20px;
     text-align: center;
+}
+
+.deleteConfirmation{    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: red;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.deleteConfirmation div{
+    margin-left: 20px;
+    display: flex;
+    gap: 30px;
+}
+
+.deleteConfirmation div span{
+    cursor: pointer;
 }
 
 

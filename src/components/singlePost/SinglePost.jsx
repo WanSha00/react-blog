@@ -242,6 +242,17 @@ function SinglePost() {
             </>
           )}
         </div>
+
+        {!updateMode && (
+          <p className="authorLink">
+            
+          <Link to={"/profile/" + post.user} className="link">
+            <b>Read more from this author</b>
+          </Link>
+        </p>
+        )}
+
+        
       </div>
     </>
   );

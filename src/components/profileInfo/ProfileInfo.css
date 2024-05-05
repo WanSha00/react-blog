@@ -27,6 +27,7 @@
         max-height: 150px;
         border-radius: 5px;
         margin-left: 5px;
+        object-fit: cover;
     }
 
     .profileDetails {

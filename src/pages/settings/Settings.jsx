@@ -78,6 +78,11 @@ function Settings() {
     }
   };
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <>
       <div className="settings">
@@ -85,10 +90,20 @@ function Settings() {
           <span className="msg">{message}</span>
           <div className="settingsTitle">
             <span className="settingsUpdateTitle">Update Your Account</span>
-            <span className="settingsDeleteTitle" onClick={handleDelete}>
+            <span className="settingsDeleteTitle"  onClick={toggleMenu}>
               Delete Account
             </span>
           </div>
+          {isMenuOpen && (
+            <div className="deleteConfirmation">
+            <p>Delete account?</p>
+            <div>
+              <span onClick={handleDelete}>Yes</span>
+              <span onClick={toggleMenu}>No</span>
+            </div>
+          </div>
+          )}
+          
           <form className="settingsForm" onSubmit={handleUpdate}>
             <label>Profile Picture</label>
             <div className="settingsPP">
