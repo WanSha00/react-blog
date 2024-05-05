@@ -6,6 +6,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    min-height: 500px
 }
 
 .singlePostImg {
@@ -137,12 +138,12 @@
 .authorLink {
     font-size: 14px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     color: #b39656;
-    position: fixed;
+    /* position: fixed;
     top: auto;
     bottom: 0;
-    right: 10%;
+    right: 10%; */
     margin-bottom: 20px;
     font-family: 'Varela Round', sans-serif;
 }
