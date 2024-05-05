@@ -21,27 +21,29 @@ function Post({ post }) {
   return (
     <>
       <div className="post">
-
         <div className="postTop">
-        <img
-          className="userPhoto"
-          src={
-            userPhoto == ""
-              ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              : userPhoto
-          }
-          alt=""
-        />
-
-        <div className="details">
+          <div className="postTopLeft">
+          <Link to={"/profile/" + post.user} className="link">
+            <img
+              className="userPhoto"
+              src={
+                userPhoto == ""
+                  ? "https://images.pexels.com/photos/978503/pexels-photo-978503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  : userPhoto
+              }
+              alt=""
+            />
+          </Link>
           <span className="postAuthor">by {author}</span>
-          <span className="postDate">
-            {new Date(post.createdAt).toDateString()}
-          </span>
-        </div>
+          </div>
+         
 
+          <div className="details">            
+            <span className="postDate">
+              {new Date(post.createdAt).toDateString()}
+            </span>
+          </div>
         </div>
-        
 
         <img className="postImg" src={post.photo} alt="" />
 
@@ -60,6 +62,10 @@ function Post({ post }) {
           </Link>
         </div>
         <p className="postDescription">{post.desc}</p>
+        <Link to={`/post/${post._id}`} className="link">
+        <span className="postRead">{"Read post"}</span>
+          </Link>
+        
       </div>
     </>
   );

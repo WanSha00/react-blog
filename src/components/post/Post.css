@@ -82,6 +82,20 @@
     margin-bottom: 5px;
 }
 
+.postTopLeft{
+    display: flex;
+    gap: 10px;
+}
+
+.postRead{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+    color: #be9656;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 600px) {  
  .post{
     width: 70vw;

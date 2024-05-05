@@ -140,10 +140,6 @@
     display: flex;
     justify-content: flex-end;
     color: #b39656;
-    /* position: fixed;
-    top: auto;
-    bottom: 0;
-    right: 10%; */
     margin-bottom: 20px;
     font-family: 'Varela Round', sans-serif;
 }
