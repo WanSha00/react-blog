@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import "./Sidebar.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar({ profileId }) {
   const [categories, setCategories] = useState([]);
   const [user, setUser] = useState({});
-
+  const [selectedItem, setSelectedItem] = useState("all");
+  const { search } = useLocation();
   const apiUrl = import.meta.env.VITE_API_URL;
+
+  console.log(search)
 
   useEffect(() => {
     const getCategories = async () => {
@@ -26,6 +29,10 @@ function Sidebar({ profileId }) {
 
     getUser();
   }, [profileId]);
+
+  const handleItemClick = (index) => {
+    setSelectedItem(index);
+  };
 
   return (
     <>
@@ -53,12 +60,22 @@ function Sidebar({ profileId }) {
                   to={`/profile/${profileId}?category=${c.name}`}
                   className="link"
                 >
-                  <li className="sidebarListItem">{c.name}</li>
+                  <li className={
+                      i == selectedItem && search != ""
+                        ? "sideBarListItem sidebarCatChecked"
+                        : "sideBarListItem"
+                    }
+                    onClick={() => handleItemClick(i)}>{c.name}</li>
                 </Link>
               );
             })}
             <Link to={`/profile/${profileId}`} className="link">
-              <li className="sidebarListItem">All</li>
+              <li className={
+                  "all" == selectedItem || search == ""
+                    ? "sideBarListItem sidebarCatChecked"
+                    : "sideBarListItem"
+                }
+                onClick={() => handleItemClick("all")}>All</li>
             </Link>
           </ul>
         </div>

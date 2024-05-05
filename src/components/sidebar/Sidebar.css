@@ -68,3 +68,8 @@
     margin-left: 10px;
     cursor: pointer;
 }
+
+.sidebarCatChecked{
+    font-weight: bold;
+    
+}
